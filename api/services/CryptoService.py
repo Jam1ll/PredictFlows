@@ -2,7 +2,6 @@ import requests
 import pandas as pd
 
 class CryptoService:
-    # URLs
     MARKET_URL = "https://api.coingecko.com/api/v3/coins/markets"
     BASE_URL = "https://api.coingecko.com/api/v3/coins"
     
@@ -79,10 +78,7 @@ class CryptoService:
         final_df = pd.concat(all_data, ignore_index=True)
         return final_df
 
-
-
-cs = CryptoService()
-
+"""
 market_df = cs.GetAllCryptoCoins(num_coins=5, currency="eur")
 print("\n--- Market Data ---")
 print(market_df.head())
@@ -90,3 +86,4 @@ print(market_df.head())
 historical_df = cs.GetHistory(["bitcoin"], 1)
 print("\n--- Specific Data ---")
 print(historical_df.tail())
+"""
