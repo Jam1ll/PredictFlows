@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# Asume que .services.CryptoService es accesible
 from .services.CryptoService import CryptoService 
 from django.http import StreamingHttpResponse
+from .services.prediccion_service import PrediccionService
 import time
 import json
 from datetime import datetime, timedelta
@@ -61,3 +61,17 @@ class CryptoStream(APIView):
                 time.sleep(1)
 
         return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
+
+
+######## ANALISIS DE DATOS ########
+
+class PrediccionCryptoView(APIView):
+    def get(self, request):
+        id_moneda = request.query_params.get('name')   # Moneda
+        vs_currency = request.query_params.get('vs', 'usd')     # Moneda base
+        dias = int(request.query_params.get('dias', 30))        # Días de datos históricos
+        dias_pred = int(request.query_params.get('pred', 7))    # Días a predecir
+
+        service = PrediccionService()
+        resultado = service.calcular_prediccion(id_moneda, vs_currency, dias, dias_pred)
+        return Response(resultado)
