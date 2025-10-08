@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .services.CryptoService import CryptoService
+# Asume que .services.CryptoService es accesible
+from .services.CryptoService import CryptoService 
 from django.http import StreamingHttpResponse
 import time
 import json
@@ -11,7 +12,9 @@ class CryptoView(APIView):
     def get(self, request):
         service = CryptoService()
         df = service.GetAllCryptoCoins()
+        
         data = df.to_dict(orient="records")
+        
         return Response(data)
 
 # Endpoint GET /api/cryptocoin/<name>/<days>/
@@ -24,8 +27,11 @@ class CryptoHistoryView(APIView):
             return Response({"error": f"No se pudo obtener datos históricos para {name}."}, status=404)
 
         data = df.to_dict(orient="records")
+        
         return Response(data)
-    
+
+# Endpoint 1: GET /api/cryptocoin/stream/
+# Endpoint 1: GET /api/cryptocoin/stream/<cryptos quantity>/
 class CryptoStream(APIView):
     cache_data = None
     cache_time = None
@@ -42,10 +48,14 @@ class CryptoStream(APIView):
                             df = service.GetTopNCryptoCoins(num_coins)
                         else:
                             df = service.GetTopNCryptoCoins(num_coins=10)
-                            
-                        CryptoStream.cache_data = df.to_dict(orient='records')
+                        
+                        data_to_cache = df.to_dict(orient="records") 
+                        
+                        CryptoStream.cache_data = json.dumps(data_to_cache)
                         CryptoStream.cache_time = now
-                        yield f"data: {json.dumps(CryptoStream.cache_data)}\n\n"
+                        
+                        yield f"data: {CryptoStream.cache_data}\n\n"
+                        
                     except Exception as e:
                         yield f"data: {json.dumps({'error': str(e)})}\n\n"
                 time.sleep(1)

@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 
 class CryptoService:
     MARKET_URL = "https://api.coingecko.com/api/v3/coins/markets"
@@ -30,13 +31,9 @@ class CryptoService:
 
             if isinstance(response, list) and response:
                 df = pd.DataFrame(response)
+                df = df.replace({np.nan: None})
                 
-                cols_to_select = [
-                    col for col in self.COLUMNAS_REQUERIDAS 
-                    if col in df.columns
-                ]
-                
-                return df[cols_to_select]
+                return df
             else:
                 print(f"Error: Failed to retrieve market data. API response: {response}")
                 return pd.DataFrame() 
@@ -93,13 +90,9 @@ class CryptoService:
 
             if isinstance(response, list) and response:
                 df = pd.DataFrame(response)
+                df = df.replace({np.nan: None})
                 
-                cols_to_select = [
-                    col for col in self.COLUMNAS_REQUERIDAS 
-                    if col in df.columns
-                ]
-                
-                return df[cols_to_select]
+                return df
             else:
                 print(f"Error: Failed to retrieve market data. API response: {response}")
                 return pd.DataFrame() 
