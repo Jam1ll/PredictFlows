@@ -1,6 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .services.CryptoService import CryptoService
+from django.http import StreamingHttpResponse
+import time
+import json
+from datetime import datetime, timedelta
 
 # Endpoint GET /api/cryptocoin/
 class CryptoView(APIView):
@@ -21,4 +25,29 @@ class CryptoHistoryView(APIView):
 
         data = df.to_dict(orient="records")
         return Response(data)
+    
+class CryptoStream(APIView):
+    cache_data = None
+    cache_time = None
+    cache_duration = timedelta(seconds=12)
 
+    def get(self, request, num_coins=None):
+        def event_stream():
+            service = CryptoService()
+            while True:
+                now = datetime.now()
+                if (CryptoStream.cache_data is None or CryptoStream.cache_time is None or now - CryptoStream.cache_time > CryptoStream.cache_duration):
+                    try:
+                        if num_coins:
+                            df = service.GetTopNCryptoCoins(num_coins)
+                        else:
+                            df = service.GetTopNCryptoCoins(num_coins=10)
+                            
+                        CryptoStream.cache_data = df.to_dict(orient='records')
+                        CryptoStream.cache_time = now
+                        yield f"data: {json.dumps(CryptoStream.cache_data)}\n\n"
+                    except Exception as e:
+                        yield f"data: {json.dumps({'error': str(e)})}\n\n"
+                time.sleep(1)
+
+        return StreamingHttpResponse(event_stream(), content_type='text/event-stream')

@@ -77,13 +77,33 @@ class CryptoService:
             
         final_df = pd.concat(all_data, ignore_index=True)
         return final_df
+    
+    def GetTopNCryptoCoins(self, num_coins=10, currency="usd"):
+        print(f"fetching top {num_coins} coins in {currency}...")
+        
+        params = {
+            "vs_currency": currency,
+            "order": "market_cap_desc",
+            "per_page": num_coins,
+            "page": 1
+        }
+        
+        try:
+            response = requests.get(self.MARKET_URL, params=params).json()
 
-"""
-market_df = cs.GetAllCryptoCoins(num_coins=5, currency="eur")
-print("\n--- Market Data ---")
-print(market_df.head())
-
-historical_df = cs.GetHistory(["bitcoin"], 1)
-print("\n--- Specific Data ---")
-print(historical_df.tail())
-"""
+            if isinstance(response, list) and response:
+                df = pd.DataFrame(response)
+                
+                cols_to_select = [
+                    col for col in self.COLUMNAS_REQUERIDAS 
+                    if col in df.columns
+                ]
+                
+                return df[cols_to_select]
+            else:
+                print(f"Error: Failed to retrieve market data. API response: {response}")
+                return pd.DataFrame() 
+                
+        except requests.exceptions.RequestException as e:
+            print(f"Error: Connection error: {e}")
+            return pd.DataFrame()
