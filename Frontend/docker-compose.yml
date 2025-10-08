@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Servicio para tu aplicación PHP y servidor web Apache
+  app:
+    # Construye la imagen usando el Dockerfile que creamos en el mismo directorio
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Mapea el puerto 80 del contenedor al puerto 8080 en tu máquina local
+    ports:
+      - "8080:80"
+    # Monta tu directorio actual (donde está el docker-compose.yml) 
+    # dentro del directorio /var/www/html del contenedor.
+    # Esto te permite editar archivos en tu PC y ver los cambios inmediatamente.
+    volumes:
+      - .:/var/www/html
+    # Depende del servicio 'db' para que inicie primero
+    depends_on:
+      - db
+    # Define variables de entorno, por ejemplo, para la conexión a la base de datos
+    environment:
+      # Puedes usar estas variables en tu código PHP
+      DB_HOST: db
+      DB_DATABASE: app_db
+      DB_USERNAME: user
+      DB_PASSWORD: password123
+
+  # Servicio para la base de datos MariaDB (un fork de MySQL)
+  db:
+    image: mariadb:10.6
+    # Reinicia automáticamente si falla
+    restart: always
+    environment:
+      # Credenciales para la base de datos
+      MARIADB_DATABASE: app_db
+      MARIADB_USER: user
+      MARIADB_PASSWORD: password123
+      MARIADB_ROOT_PASSWORD: rootpassword
+    # Mapea el puerto 3306 de la base de datos al puerto 33066 de tu máquina local (opcional)
+    # Esto te permite acceder a la DB con un cliente externo como DBeaver o TablePlus
+    ports:
+      - "33066:3306"
+    # Guarda los datos de la base de datos de forma persistente en un volumen
+    volumes:
+      - dbdata:/var/lib/mysql
+
+# Define el volumen para la persistencia de los datos
+volumes:
+  dbdata:

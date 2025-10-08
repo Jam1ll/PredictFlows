@@ -1,0 +1,254 @@
+.dark-theme {
+    --White: #1E293B;
+    --Heading: #94A3B8;
+    --Input: #324055;
+    --Body-Text: #FFFFFF;
+    --Note: #95989D;
+    --Stroke: #283548;
+    --bg-table: #28354852;
+    --bg-table-1: #28354852;
+    --hv-item: #ffffff24;
+
+    background: #0F172A;
+
+    .button-dark-light {
+        i {
+            &::before {
+                content: '\ea00';
+            }
+        }
+    }
+
+    .form-search {
+        .button-submit {
+            button {
+                color: #94A3B8;
+            }
+        }
+    }
+
+    .header-dashboard {
+        .wrap {
+            .header-item {
+                background: #CBD5E11A;
+
+                &.country {
+                    .image-select .dropdown-toggle {
+                        background: #CBD5E11A;
+                    }
+                }
+            }
+
+            .box-content-search {
+                box-shadow: 0px 4px 24px 2px #141926CC !important;
+            }
+        }
+    }
+
+    .divider {
+        background: #283548 !important;
+    }
+
+    .section-content-right {
+        .main-content {
+            background: #0F172A;
+        }
+    }
+
+    .wg-pagination {
+        li {
+            a {
+                border-color: #283548;
+                color: #94A3B8;
+            }
+        }
+    }
+
+    .product-item {
+        .image {
+            background: transparent;
+        }
+
+        svg {
+            path {
+                stroke: #fff;
+            }
+        }
+    }
+
+    .block-available {
+        background: #2A4432;
+    }
+
+    .block-not-available {
+        background: #432F25;
+    }
+
+    .block-pending {
+        background: #95989d69;
+    }
+
+    .block-tracking {
+        background: #2377fc38;
+    }
+
+    .wg-goal .left h5,
+    .wg-goal .left .body-text,
+    .wg-goal .left .body-title {
+        color: #FFF;
+    }
+
+    .select {
+        &.style-default {
+            select {
+                color: #fff;
+            }
+        }
+
+        &::after {
+            color: #94A3B8;
+        }
+    }
+
+    .grid-list-style {
+        i {
+            color: #fff;
+        }
+    }
+
+    .tf-button-download {
+        i {
+            color: #94A3B8;
+        }
+    }
+
+    .section-menu-left {
+        background-color: #1E293B;
+
+        >.box-logo {
+            border-bottom-color: #283548;
+        }
+
+        .center-heading {
+            color: #BDCFD3;
+        }
+
+        .menu-item {
+            a {
+                .icon {
+                    i {
+                        color: #94A3B8 !important;
+                    }
+
+                    svg {
+                        path {
+                            stroke: #94A3B8;
+                        }
+                    }
+                }
+
+                .text {
+                    // color: #fff !important;
+                    color: #fff !important;
+                }
+            }
+
+            &.has-children {
+                .sub-menu {
+                    a {
+                        .text {
+                            color: #94A3B8;
+                        }
+                    }
+                }
+
+                &::after {
+                    color: #94A3B8 !important;
+                }
+            }
+        }
+
+        .bot {
+            .wrap {
+                border-color: #283548;
+
+                h6 {
+                    color: #fff;
+                }
+
+                .text {
+                    color: #94A3B8;
+                }
+            }
+        }
+    }
+
+    .widget-tabs {
+        .widget-menu-tab {
+            border-color: var(--Input);
+        }
+    }
+
+    .apexcharts-tooltip {
+        background: #94A3B8 !important;
+
+        .apexcharts-tooltip-title {
+            background: #94A3B8 !important;
+        }
+    }
+
+    #morris-donut-1 {
+        svg {
+            text {
+                tspan {
+                    fill: #fff;
+                }
+            }
+        }
+    }
+
+    .dropdown-menu {
+        box-shadow: 0px 4px 24px 2px #141926CC !important;
+    }
+
+    .popup-wrap.apps .dropdown-menu.show .list-apps .item {
+        border-color: #283548;
+    }
+
+    .apexcharts-grid {
+        .apexcharts-gridlines-horizontal {
+            line {
+                stroke: #475569 !important;
+            }
+        }
+    }
+
+    .apexcharts-grid-borders {
+        line {
+            stroke: #475569 !important;
+        }
+    }
+
+    .tf-button {
+        border: 0;
+
+        &:hover {
+            background-color: #2275fccc;
+            color: #fff;
+        }
+
+        &.style-1 {
+            background-color: #fff;
+
+            &:hover {
+                background-color: #2275fc;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .dark-theme .layout-wrap.full-width .box-logo {
+        background-color: #1E293B;
+    }
+}
