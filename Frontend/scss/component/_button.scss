@@ -1,0 +1,86 @@
+.tf-button {
+    width: max-content;
+    height: 50px;
+    padding: 15px 22px;
+    color: #FFF;
+    @include flex(center,center);
+    gap: 8px;
+    font-family: $font-main-family;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    border: 1px solid var(--Main);
+    border-radius: 12px;
+    background-color: var(--Main);
+    background-size: 100%;
+    overflow: hidden;
+    @include transition3();
+    &:hover {
+        color: var(--Main);    
+        background-color: #FFF;
+        span {
+            color: #FFF !important;
+        }
+    }
+    i {
+        font-size: 20px;
+    }
+    &.style-1 {
+        color: var(--Main);    
+        background-color: var(--White);
+        &:hover {
+            color: #FFF;    
+            background-color: var(--Main);
+        }
+    }
+    &.style-2 {
+        color: #575864;    
+        background-color: #FFF;
+        border-color: var(--Input);
+        &:hover {
+            color: #FFF;    
+            background-color: var(--Main);
+        }
+    }
+    &.w208 {
+        width: 208px;
+    }
+    &.w230 {
+        width: 230px;
+    }
+    &.w180 {
+        width: 180px;
+    }
+    &.w128 {
+        width: 128px;
+    }
+}
+
+.tf-button-funtion {
+    @include flex(center,center);
+    gap: 8px;
+    border: 1px solid var(--Input);
+    border-radius: 12px;
+    padding: 14px 21px;
+    cursor: pointer;
+    i {
+        color: var(--Body-Text);
+        font-size: 20px;
+    }
+    div {
+        color: var(--Body-Text);
+    }
+}
+
+.tf-button-download {
+    @include flex(center,center);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--Input);
+    border-radius: 12px;
+    cursor: pointer;
+    i {
+        color: #000000;
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,258 @@
+
+.layout-wrap {
+    .section-menu-left {
+        position: fixed;
+        width: 280px;
+        min-width: 280px;
+        height: 100%;
+        left: 0;
+        z-index: 20;
+        box-shadow: 0px 0px 24px 2px rgba(20, 25, 38, 0.05);
+        padding-top: 81px;
+        @include flex(center,start);
+        flex-direction: column;
+        flex-shrink: 0;
+        @include transition3;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        &::before {
+            position: absolute;
+            inset: 0;
+            content: '';
+            background: var(--White);
+        }
+        > .box-logo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            padding: 14px 20px 13px 20px;
+            width: 280px;
+            border-bottom: 1px solid #F2F7FB;
+            @include flex(center,space-between);
+            @include transition3;
+            z-index: 5;
+        }
+        .section-menu-left-wrap {
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+            z-index: 5;
+            &::-webkit-scrollbar {
+                width: 3px;
+            }
+        }
+        .center {
+            padding: 20px;
+            width: 100%;
+            .center-heading {
+                color: #BDC7D3;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 15px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                padding-left: 14px;
+            }
+            .center-item {
+                margin-bottom: 20px;
+            }
+            .menu-list {
+                @include d-flex;
+                flex-direction: column;
+            }
+            .menu-item {
+                -webkit-transition: all 0.6s ease;
+                -moz-transition: all 0.6s ease;
+                -ms-transition: all 0.6s ease;
+                -o-transition: all 0.6s ease;
+                transition: all 0.6s ease;
+                a {
+                    padding: 14px;
+                    position: relative;
+                    @include flex(center,start);
+                    gap: 10px;
+                    .icon {
+                        width: 20px;
+                        height: 20px;
+                        svg,
+                        i {
+                            font-size: 20px;
+                            color: #111111;
+                            @include transition3;
+                        }
+                    }
+                    .text {
+                        color: #111111;
+                        font-size: 14px;
+                        font-weight: 600;
+                        line-height: 17px;
+                        text-transform: capitalize;
+                        @include transition3;
+                    }
+                    &.active,
+                    &:hover {
+                        &::after,
+                        i,
+                        .text {
+                            color: var(--Main) !important;
+                        }
+                        svg {
+                            path {
+                                stroke: var(--Main) !important;
+                            }
+                        }
+                    }
+                }
+                &.has-children {
+                    position: relative;
+                    transition-delay: 0.3s;
+                    &::after {
+                        position: absolute;
+                        content: '\e934';
+                        top: 15px;
+                        right: 14px;
+                        color: #111111;
+                        font-size: 16px;
+                        font-family: $fontIcon;
+                        @include transition3;
+                        cursor: pointer;
+                    }
+                    .sub-menu {
+                        display: none;
+                        margin-top: 16px;
+                        padding-left: 44px;
+                        margin-bottom: 16px;
+                        width: 240px;
+                        overflow-x: auto;
+                        &::-webkit-scrollbar {
+                            width: 3px;
+                        }
+                        .sub-menu-item:not(:last-child) {
+                            margin-bottom: 16px;
+                        }
+                        a {
+                            padding: 0;
+                            position: relative;
+                            .text {
+                                color: #575864;
+                            }
+                            &::before {
+                                position: absolute;
+                                content: '';
+                                top: 6px;
+                                left: -17px;
+                                width: 6px;
+                                height: 6px;
+                                border: 1px solid #CBD5E1;
+                                transform: rotate(45deg);
+                            }
+                            &.active {
+                                &::before {
+                                    border-color: var(--Main);
+                                }
+                            }
+                        }
+                    }
+                    &.active {
+                        > a {
+                            border-radius: 12px;
+                            background: rgba(35, 119, 252, 0.10);
+                            i,
+                            .text {
+                                color: var(--Main);
+                            }
+                            &::after {
+                                position: absolute;
+                                content: '';
+                                top: 7px;
+                                left: -24px;
+                                width: 8px;
+                                height: 34px;
+                                background-color: var(--Main);
+                                border-radius: 8px;
+                            }
+                        }
+                        &::after {
+                            top: 14px;
+                            transform: rotate(180deg);
+                            color: var(--Main) !important;
+                        }
+                        > .sub-menu {
+                            display: block;
+                        }
+                    }
+                }
+                &:not(.has-children) {
+                    &.active {
+                        background-color: rgba(35, 119, 252, 0.1);
+                        border-radius: 12px;
+                    }
+                }
+            }
+        }
+        a {
+            position: relative;
+            // img {
+            //     width: 154px;
+            // }
+        }
+        .button-show-hide {
+            position: relative;
+            font-size: 24px;
+            color: #94A3B8;
+            cursor: pointer;
+            @include transition3;
+            i {
+                @include transition3;
+            }
+            &:hover {
+                i {
+                    color: var(--Main);
+                }
+            }
+        }
+        .bot {
+            width: 100%;
+            padding: 20px 20px 30px 20px;
+            .wrap {
+                padding: 16px 16px 9px 16px;
+                border-radius: 12px;
+                border: 1px solid #F2F7FB;
+            }
+            h6 {
+                color: #111111;
+            }
+            .text {
+                color: #575864;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 15px;
+                margin-top: 8px;
+            }
+        }
+    }
+    &.full-width {
+        .section-menu-left {
+            left: -100%;
+            > .box-logo {
+                left: -100%;
+                border-bottom: 0;
+                padding: 14px 20px ;
+                background-color: #fff;
+            }
+        }
+        .button-show-hide {
+            transform: rotate(180deg);
+        }
+        .header-dashboard {
+            .button-show-hide {
+                display: block;
+                i {
+                    color: var(--Main);
+                }
+            }
+        }
+    }
+}
