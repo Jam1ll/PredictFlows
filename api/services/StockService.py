@@ -4,20 +4,13 @@ import yfinance as yf
 
 class StockService:
 
-    COLUMNAS_REQUERIDAS = [
-        "name",
-        "symbol",
-        "current_price",
-        "total_volume",
-    ]
-
     def __init__(self):
         pass
 
     def GetAllStocks(self, tickers):
 
         if not tickers:
-            return pd.DataFrame(columns=self.COLUMNAS_REQUERIDAS)
+            return pd.DataFrame()
 
         print(f"fetching latest quotes for {len(tickers)} tickers...")
 
@@ -35,7 +28,7 @@ class StockService:
             )
         except Exception as e:
             print(f"Error al descargar precios: {e}")
-            return pd.DataFrame(columns=self.COLUMNAS_REQUERIDAS)
+            return pd.DataFrame()
 
         rows = []
         for t in tickers:
@@ -83,13 +76,11 @@ class StockService:
 
         if not rows:
             print("No se obtuvieron cotizaciones.")
-            return pd.DataFrame(columns=self.COLUMNAS_REQUERIDAS)
+            return pd.DataFrame()
 
         df = pd.DataFrame(rows)
-
-        # Garantizar solo las columnas requeridas y sin multi-index
-        cols_to_select = [c for c in self.COLUMNAS_REQUERIDAS if c in df.columns]
-        return df[cols_to_select]
+        
+        return df
 
     def GetHistory(self, tickers, days, interval="1h"):
 
