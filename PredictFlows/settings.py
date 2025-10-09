@@ -152,4 +152,12 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+    "cache-control",
+    "x-accel-buffering",
+]
+
+# Permitir exposición de headers para SSE
+CORS_EXPOSE_HEADERS = [
+    "cache-control",
+    "x-accel-buffering",
 ]

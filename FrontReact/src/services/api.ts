@@ -19,11 +19,13 @@ export const cryptoAPI = {
         api.get(`/cryptocoin/${name}/${days}/`),
 
     // GET /api/cryptocoin/stream/ - Stream tiempo real (top 10)
-    getStreamUrl: () => `${API_BASE_URL}/cryptocoin/stream/`,
-
-    // GET /api/cryptocoin/stream/<num_coins> - Stream personalizado
-    getCustomStreamUrl: (numCoins: number) =>
-        `${API_BASE_URL}/cryptocoin/stream/${numCoins}`,
+    // Retorna un EventSource para recibir actualizaciones en tiempo real
+    createStream: (numCoins?: number) => {
+        const url = numCoins
+            ? `${API_BASE_URL}/cryptocoin/stream/${numCoins}`
+            : `${API_BASE_URL}/cryptocoin/stream/`;
+        return new EventSource(url);
+    },
 
     // GET /api/prediccion/ - Predicción de precios
     getPrediction: (params: {

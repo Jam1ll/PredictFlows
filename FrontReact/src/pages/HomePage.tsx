@@ -122,13 +122,13 @@ export default function HomePage() {
                             Invierte con
                             <br />
                             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
-                                Inteligencia Artificial
+                                PredictFlow
                             </span>
                         </h2>
 
                         <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                             Análisis avanzado y predicciones precisas para criptomonedas y acciones.
-                            Toma decisiones informadas con datos en tiempo real y machine learning.
+                            Toma decisiones informadas con datos en tiempo real.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
@@ -212,9 +212,9 @@ export default function HomePage() {
                                     <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                         <Sparkles className="h-8 w-8 text-white" />
                                     </div>
-                                    <CardTitle className="text-2xl">Predicciones IA</CardTitle>
+                                    <CardTitle className="text-2xl">Predicciones</CardTitle>
                                     <CardDescription className="text-base">
-                                        Machine learning avanzado para proyecciones precisas del mercado.
+                                        Cálculos avanzado para proyecciones precisas del mercado.
                                     </CardDescription>
                                 </CardHeader>
                             </Card>
@@ -250,7 +250,7 @@ export default function HomePage() {
                                     </div>
                                     <CardTitle className="text-2xl">95% de Precisión</CardTitle>
                                     <CardDescription className="text-base">
-                                        Nuestros modelos de IA tienen una tasa de acierto comprobada del 95%.
+                                        Nuestros cálculos tienen una tasa de acierto comprobada del 95%.
                                     </CardDescription>
                                 </CardHeader>
                             </Card>
@@ -307,8 +307,8 @@ export default function HomePage() {
                                         </ul>
                                         <Button
                                             className={`w-full py-6 text-lg ${plan.popular
-                                                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg'
-                                                    : 'bg-gray-900 hover:bg-gray-800 text-white'
+                                                ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg'
+                                                : 'bg-gray-900 hover:bg-gray-800 text-white'
                                                 }`}
                                         >
                                             Comenzar Ahora
