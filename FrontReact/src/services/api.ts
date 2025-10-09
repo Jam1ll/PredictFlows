@@ -36,6 +36,27 @@ export const cryptoAPI = {
     }) => api.get('/prediccion/', { params }),
 };
 
+// Crypto endpoints
+export const StockAPI = {
+    // GET stocks/?tickers=AAPL,MSFT,GOOGL - obtener todos los tickers de los stocks
+    getAllStock: () => api.get('/stocks/?tickers=AAPL,MSFT,GOOGL'),
+
+    // GET stocks/history/<int:days>/?tickers=AAPL,MSFT&interval=1h - Historial de un stock
+    getStockHistory: (days: number, tickers: string, interval: string) =>
+        api.get(`/stocks/history/${days}/?tickers=${tickers}&interval=${interval}`),
+
+    // GET stocks/stream/?tickers=AAPL,MSFT  (opcional: &cache_seconds=12)  (opcional: &cache_seconds=12)
+    createStream: (tickers: string, cacheSeconds?: number) => {
+        const url = cacheSeconds
+            ? `${API_BASE_URL}/stocks/stream/?tickers=${tickers}&cache_seconds=${cacheSeconds}`
+            : `${API_BASE_URL}/stocks/stream/?tickers=${tickers}`;
+        return new EventSource(url);
+    },
+    
+    
+};
+
+
 // Tipos para las respuestas
 export interface CryptoData {
     id: string;
@@ -75,4 +96,20 @@ export interface CryptoHistoryData {
 export interface PredictionData {
     fecha: string;
     precio_predicho: number;
+}
+
+//STOCKS
+export interface Stocks {
+    name: string;
+    symbol: string;
+    current_price: number;
+    total_volume: number;
+}
+
+
+export interface stockHistory {
+    timestamp: string;
+    price: number;
+    volume: number;
+    symbol: string
 }

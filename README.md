@@ -120,6 +120,13 @@ PredictFlows/
 | GET    | `/api/cryptocoin/stream/`            | Stream SSE en tiempo real |
 | GET    | `/api/prediccion/?name=&dias=&pred=` | Predicción ML             |
 
+| Método | Endpoint                             | Descripción               |
+| ------ | ------------------------------------ | ------------------------- |
+| GET    | `/api/stocks/?tickers=AAPL,MSFT,GOOGL`                   | stocks list |
+| GET    | `stocks/history/<int:days>/?tickers=AAPL,MSFT&interval=1h` | historial del stock |
+| GET    | `/api/cryptocoin/stream/`            | Stream SSE en tiempo real |
+         |
+
 ---
 
 ## 📸 Capturas
