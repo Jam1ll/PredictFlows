@@ -93,7 +93,7 @@ export default function HomePage() {
                             <TrendingUp className="h-6 w-6 text-white" />
                         </div>
                         <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                            PredictFlow
+                            PredictFlows
                         </h1>
                     </div>
                     <div className="flex items-center gap-4">
@@ -114,7 +114,7 @@ export default function HomePage() {
                         <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-200 backdrop-blur-sm">
                             <Sparkles className="h-5 w-5 text-blue-600 animate-pulse" />
                             <span className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                Predicciones con IA en tiempo real
+                                Predicciones en tiempo real
                             </span>
                         </div>
 
@@ -122,7 +122,7 @@ export default function HomePage() {
                             Invierte con
                             <br />
                             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
-                                PredictFlow
+                                PredictFlows
                             </span>
                         </h2>
 
@@ -325,7 +325,7 @@ export default function HomePage() {
                             ¿Listo para comenzar?
                         </h3>
                         <p className="text-xl mb-8 opacity-90">
-                            Únete a miles de inversores que ya están usando PredictFlow
+                            Únete a miles de inversores que ya están usando PredictFlows
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
@@ -358,7 +358,7 @@ export default function HomePage() {
                                     <TrendingUp className="h-5 w-5 text-white" />
                                 </div>
                                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                    PredictFlow
+                                    PredictFlows
                                 </h1>
                             </div>
                             <p className="text-gray-600 text-sm">
@@ -394,7 +394,7 @@ export default function HomePage() {
                         </div>
                     </div>
                     <div className="border-t pt-8 text-center text-gray-500 text-sm">
-                        <p>© 2025 PredictFlow. Powered by CoinGecko & Yahoo Finance. Todos los derechos reservados.</p>
+                        <p>© 2025 PredictFlows. Powered by CoinGecko & Yahoo Finance. Todos los derechos reservados.</p>
                     </div>
                 </div>
             </footer>
