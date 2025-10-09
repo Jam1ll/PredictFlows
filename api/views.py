@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from .services.CryptoService import CryptoService 
 from django.http import StreamingHttpResponse
 from .services.prediccion_service import PrediccionService
+from .services.StockService import StockService
+
 import time
 import json
 from datetime import datetime, timedelta
@@ -62,7 +64,105 @@ class CryptoStream(APIView):
 
         return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
 
+######## STOCKS ########
 
+
+# Helper para parsear tickers desde query param
+def _parse_tickers(param: str):
+    if not param:
+        return []
+    raw = [p.strip().upper() for p in param.replace(" ", ",").split(",")]
+    return [t for t in raw if t]
+
+
+# GET /api/stocks/?tickers=AAPL,MSFT,GOOGL
+class StockView(APIView):
+    def get(self, request):
+        tickers = _parse_tickers(request.query_params.get("tickers", ""))
+        if not tickers:
+            return Response({"error": "Parámetro 'tickers' es requerido. Ej: ?tickers=AAPL,MSFT"}, status=400)
+
+        service = StockService()
+        df = service.GetAllStocks(tickers)
+        data = df.to_dict(orient="records")
+        return Response(data)
+
+
+# GET /api/stocks/history/<int:days>/?tickers=AAPL,MSFT&interval=1h
+class StockHistoryView(APIView):
+    def get(self, request, days: int):
+        if days <= 0:
+            return Response({"error": "El parámetro de ruta 'days' debe ser > 0."}, status=400)
+
+        tickers = _parse_tickers(request.query_params.get("tickers", ""))
+        if not tickers:
+            return Response({"error": "Parámetro 'tickers' es requerido. Ej: ?tickers=AAPL,MSFT"}, status=400)
+
+        interval = request.query_params.get("interval", "1h")
+
+        service = StockService()
+        df = service.GetHistory(tickers, days=days, interval=interval)
+
+        if df is None or df.empty:
+            return Response({"error": "No se pudo obtener datos históricos para los tickers solicitados."}, status=404)
+
+        data = df.to_dict(orient="records")
+        return Response(data)
+
+
+# GET /api/stocks/stream/?tickers=AAPL,MSFT  (opcional: &cache_seconds=12)
+class StockStream(APIView):
+    cache_data = None
+    cache_time = None
+    cache_key = None
+    cache_duration = timedelta(seconds=12)
+
+    def get(self, request):
+        tickers = _parse_tickers(request.query_params.get("tickers", ""))
+        if not tickers:
+            return Response({"error": "Parámetro 'tickers' es requerido. Ej: ?tickers=AAPL,MSFT"}, status=400)
+
+        try:
+            cache_seconds = int(request.query_params.get("cache_seconds", "12"))
+            if cache_seconds > 0:
+                StockStream.cache_duration = timedelta(seconds=cache_seconds)
+        except Exception:
+            pass
+
+        request_cache_key = ",".join(tickers)
+
+        def event_stream():
+            service = StockService()
+            while True:
+                now = datetime.now()
+                needs_refresh = (
+                    StockStream.cache_data is None
+                    or StockStream.cache_time is None
+                    or StockStream.cache_key != request_cache_key
+                    or (now - StockStream.cache_time) > StockStream.cache_duration
+                )
+
+                if needs_refresh:
+                    try:
+                        df = service.GetAllStocks(tickers)
+                        data_to_cache = df.to_dict(orient="records")
+
+                        StockStream.cache_data = json.dumps(data_to_cache)
+                        StockStream.cache_time = now
+                        StockStream.cache_key = request_cache_key
+
+                        yield f"data: {StockStream.cache_data}\n\n"
+                    except Exception as e:
+                        yield f"data: {json.dumps({'error': str(e)})}\n\n"
+
+                time.sleep(1)
+
+        response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
+        response["Cache-Control"] = "no-cache"
+        response["X-Accel-Buffering"] = "no"
+        return response
+
+        
 ######## ANALISIS DE DATOS ########
 
 class PrediccionCryptoView(APIView):
