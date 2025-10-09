@@ -19,7 +19,7 @@ export default function CryptoListPage() {
     useEffect(() => {
         if (!useStream) return;
 
-        const eventSource = new EventSource(cryptoAPI.getStreamUrl());
+        const eventSource = cryptoAPI.createStream();
 
         eventSource.onmessage = (event) => {
             try {
@@ -165,8 +165,8 @@ export default function CryptoListPage() {
                                             </p>
                                             <div
                                                 className={`flex items-center justify-end gap-1 ${crypto.price_change_percentage_24h >= 0
-                                                        ? 'text-green-600'
-                                                        : 'text-red-600'
+                                                    ? 'text-green-600'
+                                                    : 'text-red-600'
                                                     }`}
                                             >
                                                 {crypto.price_change_percentage_24h >= 0 ? (
