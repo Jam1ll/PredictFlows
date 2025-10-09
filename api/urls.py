@@ -7,4 +7,7 @@ urlpatterns = [
     path('cryptocoin/stream/', CryptoStream.as_view(), name='crypto-stream'),
     path('cryptocoin/stream/<int:num_coins>', CryptoStream.as_view(), name='crypto-stream-filtered'),
     path('prediccion/', PrediccionCryptoView.as_view(), ame='prediccion-crypto'),
+    path('stocks/', StockView.as_view(), name='stocks-all'),
+    path('stocks/history/<int:days>/', StockHistoryView.as_view(), name='stocks-history'),
+    path('stocks/stream/', StockStream.as_view(), name='stocks-stream'),
 ]
